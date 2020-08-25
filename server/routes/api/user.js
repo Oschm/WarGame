@@ -7,6 +7,10 @@ const Joi = require('joi');
 const User = db.get('User');
 
 
+//making sure that email is a unique field
+User.createIndex("email", {unique: true});
+
+
 const userSchema = Joi.object({
     firstName: Joi.string().required(),
 

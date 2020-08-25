@@ -1,7 +1,9 @@
 var express = require('express');
+var bodyParser  = require('body-parser');
+require('dotenv').config()
 var app = express();
 var isProduction = process.env.NODE_ENV === "development" ? false : true;
-require('dotenv').config()
+
 
 const listenerPort = process.env.PORT;
 app.listen(listenerPort);
@@ -9,8 +11,10 @@ console.log("Listening under Port: " + listenerPort);
 
 
 // middleware
-app.use(express.json());
-app.use(express.urlencoded());
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+app.use(bodyParser.json());
 
 app.use(require('./routes'));
 
