@@ -1,37 +1,44 @@
-let yup = require('yup');
+const Game = require('../models/game.js');
+const Round = require('../models/round.js');
+var _ = require('lodash');
+
+//var game = require();
+
+WarGame = {};
 
 
-let userSchema = yup.object().shape({
-    id: yup.string().required(),
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    email: yup.string().email(),
-    createdOn: yup.date().default(function () {
-      return new Date();
-    }),
-  });
+//create game and first round
+WarGame.createGame = async function (gameData, creatingUser) {
+
+  try {
+
+    //write down  current user as initiator of the game
+    gameData.user1 = creatingUser;
+    console.log("validated:  " + JSON.stringify(gameData));
+    var createdGame = await Game.create(gameData);
+    console.log(JSON.stringify(createdGame));
+    var firstRound = {
+      "gameId": createdGame["_id"]
+    }
+    firstRound = await Round.create(firstRound);
+
+    return createdGame;
+  } catch (error) {
+    throw (error);
+  }
+}
+
+WarGame.getGamesByUser = async function (userId) {
+  //get all games for this user
+  var games = Game.getGamesByUser(userId);
+  //get all round for these games
+
+  //determine if games are over or not
+
+  return games;
+
+}
 
 
-let roundSchema = yup.object().shape({
-    id: yup.string().required(),
-    name: yup.string().required(),
-    age: yup.number().required().positive().integer(),
-    email: yup.string().email(),
-    website: yup.string().url(),
-    createdOn: yup.date().default(function () {
-      return new Date();
-    }),
-  });
 
-
-let gameSchema = yup.object().shape({
-    id: yup.string().required(),
-    user1Attack: yup.string().nullable,
-    user1Defend: yup.string().nullable,
-    user2Attack: yup.string().nullable,
-    user2Defend: yup.string().nullable,
-    user1Health: yup.number().required().integer,
-    user2Health: yup.number().required().integer,
-    user1PlayTime: yup.date().nullable,
-    user2PlayTime: yup.date().nullable
-  });
+module.exports = WarGame;

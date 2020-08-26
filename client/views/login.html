@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+
+    <div id="app">
+
+        <body>
+            <div class="login-form">
+                <h2>Ibsolution Game</h2>
+                <form>
+                    <div class="container">
+                        <label for="name"><b>Username</b></label>
+                        <input name="name" v-model="user"></input>
+                    </div>
+                    <div class="container">
+                        <label for="password"><b>Password</b></label>
+                        <input name="password" v-model="password"></input>
+                    </div>
+                    <button v-on:click="onSubmit">Login</button>
+                </form>
+            </div>
+        </body>
+    </div>
+    <script src="" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script type="text/javascript" src="login.js"></script>
+    <link rel="stylesheet" type="text/css" href="../styles/login.css">
+</body>
+
+</html>

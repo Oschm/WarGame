@@ -1,0 +1,29 @@
+.login-form {
+    display: grid;
+    text-align: center;
+    align-content: center;
+
+
+}
+
+input {
+    width: 100%;
+}
+
+button {
+    margin-top: 10px;
+}
+
+.container {
+    width: 200px;
+    margin: auto;
+}
+
+label {
+    float: left;
+}
+
+body {
+    margin-top: 10%;
+
+}
