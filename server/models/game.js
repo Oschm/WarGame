@@ -5,6 +5,10 @@ db.on('timeout', () => {
     console.log("timeout");
 })
 
+if (!db) {
+    console.log('no connection')
+}
+
 var Game = {};
 const GameCollection = db.get('Game');
 

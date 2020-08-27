@@ -2,11 +2,26 @@ const router = require('express').Router();
 //TODO Check why absolute path is not working
 const User = require('../../models/user.js');
 const warGame = require('../../services/warGame.js');
+const JWTMiddleWare = require('../../lib/JWTMiddleWare.js');
 const _ = require('lodash');
 
 
+//get current user data
+router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
+    try {
+        console.log(`get user:  ${JSON.stringify(req.user)}`);
+        if (req.user && req.user.userId) {
+            var user = await User.getById(req.user.userId);
+            console.log(`Got User from DB ${JSON.stringify(user)}`);
+            return res.json(user);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
 
-router.get('/', async (req, res, next) => {
+
+router.get('/all', async (req, res, next) => {
     try {
         console.log("get user");
         var users = await User.getAll();

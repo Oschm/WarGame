@@ -6,7 +6,7 @@ const warGame = require('../../services/warGame.js');
 const _ = require('lodash');
 const JWTMiddleWare = require('../../lib/JWTMiddleWare.js');
 
-console.log(JSON.stringify(JWTMiddleWare));
+
 
 
 

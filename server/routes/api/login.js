@@ -9,6 +9,23 @@ const loginSchema = Joi.object({
     "password": Joi.string().required()
 });
 
+
+router.get('/', (req, res, next) => {
+    console.log("login get test");
+    // res.header('Access-Control-Allow-Origin', '*');
+    /*res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );*/
+
+    res.status('200');
+    res.json({
+        success: true
+    })
+
+});
+
+
 // login
 router.post('/', async (req, res, next) => {
     try {
@@ -29,10 +46,8 @@ router.post('/', async (req, res, next) => {
         }, process.env.JWT_SECRET);
 
         res.statusCode = 200;
-        // if environment is dev then cookie can be seen in browser, if prod then not
-        res.cookie('token', token, {
-            httpOnly: process.env.NODE_ENV === "development" ? false : true
-        });
+        // return token in body
+        body.token = token;
         return res.json(req.body);
     } catch (error) {
         console.log(`/login post error: ${error.message}`);
