@@ -40,7 +40,12 @@ User.validate = async function (userObject) {
 };
 
 User.create = async function (data) {
-    return await UserCollection.insert(data);
+    try {
+        return await UserCollection.insert(data);
+    } catch (error) {
+        console.log(`User create Error: ${JSON.stringify(error)}`);
+        throw Error(error);
+    }
 };
 User.getById = async function (userId) {
     var userArray = await UserCollection.find({
@@ -53,8 +58,29 @@ User.getById = async function (userId) {
     }
 }
 
-User.getAll = async function () {
-    return await UserCollection.find({});
+User.getByUserName = async function (userName) {
+    var userArray = await UserCollection.find({
+        "email": userName
+    });
+    if (_.size(userArray) === 1) {
+        return userArray[0];
+    } else {
+        throw Error("User not in DB");
+    }
+}
+
+//if columns are specified only this columns are returned
+User.getAll = async function (columns = []) {
+    console.log(`Get All Users from DB with specified Columns: ${columns}`)
+    let config = {};
+    if (_.size(columns) >= 1) {
+        config.fields = {};
+        _.each(columns, function (columnName) {
+            config.fields[columnName] = 1;
+        });
+    }
+    console.log(`Config: ${JSON.stringify(config)}`);
+    return await UserCollection.find({}, config);
 }
 
 module.exports = User;

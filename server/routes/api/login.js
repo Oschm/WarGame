@@ -1,12 +1,19 @@
 const router = require('express').Router();
 //TODO Check why absolute path is not working
-const jwt = require('jsonwebtoken');
 const Joi = require('joi');
+const warGame = require('../../services/warGame.js');
 
 
 const loginSchema = Joi.object({
-    "userName": Joi.string().required(),
-    "password": Joi.string().required()
+    userName: Joi.string().required(),
+    password: Joi.string().required()
+});
+
+const signUpSchema = Joi.object({
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().required(),
+    password: Joi.string().required()
 });
 
 
@@ -31,23 +38,13 @@ router.post('/', async (req, res, next) => {
     try {
         console.log("login")
 
-        var body = req.body;
+        let body = req.body;
         console.log(JSON.stringify(body));
-        const value = await loginSchema.validateAsync(body);
-        //TODO check if email exists in db
-        //TODO hash pw and check if same as in db
-        //create jwt
-        //get userID from backend
-        let userId = "5f45133d21b9b83acc0fae62";
-        const token = jwt.sign({
-            username: value.userName,
-            userId: userId,
-            role: "user"
-        }, process.env.JWT_SECRET);
-
+        const loginData = await loginSchema.validateAsync(body);
+        let userToken = await warGame.loginUser(loginData);
         res.statusCode = 200;
         // return token in body
-        body.token = token;
+        body.token = userToken;
         return res.json(req.body);
     } catch (error) {
         console.log(`/login post error: ${error.message}`);
@@ -60,8 +57,16 @@ router.post('/', async (req, res, next) => {
 // login
 router.post('/signup', async (req, res, next) => {
     try {
-        //TODO
+        console.log("signup")
+        let body = req.body;
+        console.log(JSON.stringify(body));
+        let signUpData = await signUpSchema.validateAsync(body);
+        let token = await warGame.signUp(signUpData);
+        res.statusCode = 200;
+        // return token in body
+        return res.json({token});
     } catch (error) {
+        console.log("signup error");
         next(error);
     }
 });

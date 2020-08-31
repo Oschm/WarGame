@@ -33,6 +33,19 @@ router.get('/all', async (req, res, next) => {
 
 });
 
+// get possible pleayers to play with
+router.get('/opponents',JWTMiddleWare.authenticateJWT, async (req, res, next) => {
+    try {
+        console.log('get possible opponents');
+        var opponents =  warGame.getOpponents(req.user);
+        console.log(`Possible Players: ${JSON.stringify(opponents)}`);
+        return res.json(opponents);
+    } catch (error) {
+        next(error);
+    }
+
+});
+
 router.post('/', async (req, res, next) => {
     try {
         console.log("create user")
