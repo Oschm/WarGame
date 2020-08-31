@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "(cd client && npm install &&npm run build)",
+    "build": "(cd client && npmheroku  install &&npm run build)",
     "heroku-postbuild": "(cd client && npm install && npm run build)",
     "start": "node index.js"
   },
@@ -21,9 +21,9 @@
     "lodash": "^4.17.20",
     "monk": "^7.3.1",
     "password-hash": "^1.2.2",
-    "yup": "^0.29.3"
+    "yup": "^0.29.3",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
   }
 }
