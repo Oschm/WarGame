@@ -1,7 +1,7 @@
 # WarGame
 
 # Commands Cheat Sheet
-
+SignUp Page npot yet implemented. when cloning use Postman API Call to create a User and then login
 ## Backend
 start local node server = node index.js
 
@@ -29,3 +29,4 @@ npm run serve
 ## heroku deployment
 Important steps and code:
 During Deployment build function in package.json in root is called. Express servers app in client/dist folder so vue app has to be built during deployment
+After Deployment check if in Heroku has config var for MONGO_URL and set it to your mong instance

@@ -27,7 +27,7 @@ export default {
   methods: {
     loadUserData() {
       // console log loading userData
-      AxiosService.get('user', this.getUserDataSuccess, this.getUserDataSuccess);
+      AxiosService.get('api/user', this.getUserDataSuccess, this.getUserDataSuccess);
     },
     getUserDataSuccess(response) {
       this.userData = response.data;

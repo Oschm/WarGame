@@ -25,10 +25,10 @@ WarGame.loginUser = async function (userData) {
       if (passwordVerified) {
         return createJWT(user);
       } else {
-        throw new Error('wrong password');
+        throw new Error('Wong Password.');
       }
     } else {
-      throw new Error('No Password saved for User');
+      throw new Error('No Password saved for User.');
     }
   } catch (error) {
     throw (error)
@@ -86,16 +86,17 @@ WarGame.getOpponents = async function (userData) {
   let allUsers = await User.getAll(['_id', 'firstName', 'lastName']);
   console.log(`Users from DB: ${JSON.stringify(allUsers)}`);
   let opponents = _.remove(allUsers, function (user) {
-    console.log(typeof user._id);
+    console.log(typeof user._id.toString());
     console.log(typeof userData.userId);
-    console.log(`UserId: ${user._id}, UserId: ${userData.userId}, bool: ${user._id !== userData.userId}`);
-    return user._id !== userData.userId;
+    console.log(`UserId: ${user._id}, UserId: ${userData.userId}, bool: ${user._id.toString() !== userData.userId}`);
+    return user._id.toString() !== userData.userId;
   });
   console.log(`Users from DB: ${JSON.stringify(opponents)}`);
   return opponents;
 }
 
 function createJWT (userData) {
+  console.log(`Creating JWT. User ID: ${JSON.stringify(userData)}`);
   return jwt.sign({
     username: userData.userName,
     userId: userData._id,

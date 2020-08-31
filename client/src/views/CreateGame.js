@@ -37,7 +37,7 @@ export default {
   methods: {
     loadOpponents() {
        console.log();
-       AxiosService.get('user/opponents', this.getUserDataSuccess, this.getUserDataFail);
+       AxiosService.get('api/user/opponents', this.getUserDataSuccess, this.getUserDataFail);
     },
     getUserDataSuccess(response) {
       this.opponents = response.data;

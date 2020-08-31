@@ -49,6 +49,9 @@ class AxiosService {
   }
 
   handleError = (error) => {
+    if (error && error.message && error.message === 'Network Error') {
+      return Promise.reject(error.message);
+    }
     switch (error.response.status) {
       case 401:
         router.push('/');
@@ -61,7 +64,7 @@ class AxiosService {
         router.push('/');
         break;
     }
-    return Promise.reject(error);
+    return Promise.reject(error.response.data);
   }
 
   post = function (url, body, successHandler, errorHandler) {

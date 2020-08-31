@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e1ee794f-5af8-41cb-9cc2-91493dc95a42",
+		"_postman_id": "eda1a6ae-6ea7-4478-a998-a5a48940f70d",
 		"name": "WarGame",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,11 +17,10 @@
 					}
 				],
 				"url": {
-					"raw": "localhost:27018/api/user",
+					"raw": "{{API_ENDPOINT}}/api/user",
 					"host": [
-						"localhost"
+						"{{API_ENDPOINT}}"
 					],
-					"port": "27018",
 					"path": [
 						"api",
 						"user"
@@ -45,11 +44,10 @@
 					"raw": "{\"firstName\": \"patrick\", \"lastName\": \"schmidt\", \"email\": \"patrick.schmidt@ibsolution.de\"}"
 				},
 				"url": {
-					"raw": "localhost:27018/api/user",
+					"raw": "{{API_ENDPOINT}}/api/user",
 					"host": [
-						"localhost"
+						"{{API_ENDPOINT}}"
 					],
-					"port": "27018",
 					"path": [
 						"api",
 						"user"
@@ -64,11 +62,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:27018/api/game",
+					"raw": "{{API_ENDPOINT}}/api/game",
 					"host": [
-						"localhost"
+						"{{API_ENDPOINT}}"
 					],
-					"port": "27018",
 					"path": [
 						"api",
 						"game"
@@ -93,26 +90,14 @@
 					"raw": "{\"user2\": \"5f45197213143034e047d187\"}\r\n"
 				},
 				"url": {
-					"raw": "localhost:27018/api/game",
+					"raw": "{{API_ENDPOINT}}/api/game",
 					"host": [
-						"localhost"
+						"{{API_ENDPOINT}}"
 					],
-					"port": "27018",
 					"path": [
 						"api",
 						"game"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "google",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
 				}
 			},
 			"response": []
@@ -132,15 +117,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:27018/api/login",
-					"protocol": "http",
+					"raw": "{{API_ENDPOINT}}/api/login",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{API_ENDPOINT}}"
 					],
-					"port": "27018",
 					"path": [
 						"api",
 						"login"
@@ -165,15 +145,10 @@
 					"raw": "{\"userName\": \"oliver.schmidt@ibsolution.de\",\r\n\"password\": \"Test1234\"\r\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:27018/api/login",
-					"protocol": "http",
+					"raw": "{{API_ENDPOINT}}/api/login",
 					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
+						"{{API_ENDPOINT}}"
 					],
-					"port": "27018",
 					"path": [
 						"api",
 						"login"
@@ -181,6 +156,46 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getOpponents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "225afbd9-7722-4c49-8908-c0a64a0d4d0c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2316eabb-51b0-4d39-b87d-5e7c44b7c7be",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "59016d12-9da8-44c2-b2db-e56021f2fedb",
+			"key": "API_ENDPOINT",
+			"value": "localhost:27016"
 		}
 	],
 	"protocolProfileBehavior": {}

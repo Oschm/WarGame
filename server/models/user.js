@@ -54,7 +54,7 @@ User.getById = async function (userId) {
     if (_.size(userArray) === 1) {
         return userArray[0];
     } else {
-        throw Error("User not in DB");
+        throw Error("User does not exist");
     }
 }
 
@@ -65,7 +65,7 @@ User.getByUserName = async function (userName) {
     if (_.size(userArray) === 1) {
         return userArray[0];
     } else {
-        throw Error("User not in DB");
+        throw Error("User does not exist");
     }
 }
 
