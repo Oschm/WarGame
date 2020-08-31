@@ -11,7 +11,8 @@ router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
     try {
         console.log(`get user:  ${JSON.stringify(req.user)}`);
         if (req.user && req.user.userId) {
-            var user = await User.getById(req.user.userId);
+            // var user = await User.getById(req.user.userId);
+            var user = await warGame.getUserData(req.user.userId);
             console.log(`Got User from DB ${JSON.stringify(user)}`);
             return res.json(user);
         }

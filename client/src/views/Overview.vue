@@ -26,11 +26,11 @@
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
     <v-main>
-      <HeaderComp v-bind:userData="userData">
-      </HeaderComp>
+      <HeaderComp v-bind:userData="userData"> </HeaderComp>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col class="text-center">
+            <v-data-table :headers="headers" :items="userData.games" class="elevation-1"></v-data-table>
           </v-col>
         </v-row>
       </v-container>

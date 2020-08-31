@@ -19,7 +19,7 @@ router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
             var games = await warGame.getGamesByUser(req.user.userId);
             return res.json(games);
         } else
-            throw new Error("Autentication Error");
+            throw new Error("Authentication Error");
     } catch (error) {
         next(error);
     }

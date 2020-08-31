@@ -42,7 +42,7 @@ WarGame.signUp = async function (userData) {
     var hashedPassword = passwordHash.generate(userData.password);
     userData.hashedPassword = hashedPassword;
     userData = _.omit(userData, 'password');
-    let user =  await User.create(userData);
+    let user = await User.create(userData);
     return createJWT(user);
   } catch (error) {
     console.log("signUp Error");
@@ -71,15 +71,31 @@ WarGame.createGame = async function (gameData, creatingUser) {
   }
 }
 
-WarGame.getGamesByUser = function (userId) {
+WarGame.getUserData = async function (userId) {
+  console.log(`Get UserData for User with id: ${userId}`);
+  try {
+    var userData = await User.getById(userId);
+    var gameData = await this.getGamesByUser(userId);
+    userData.games = gameData;
+    return userData;
+  } catch (error) {
+    throw (error);
+  }
+}
+
+WarGame.getGamesByUser = async function (userId) {
   //get all games for this user
-  var games = Game.getGamesByUser(userId);
-  //get all round for these games
+  console.log(`Get Games from User with id: ${userId}`);
+  try {
+    var games = await Game.getGamesByUser(userId);
+    //get all round for these games
 
-  //determine if games are over or not
+    //determine if games are over or not
 
-  return games;
-
+    return games;
+  } catch (error) {
+    throw (error);
+  }
 }
 
 WarGame.getOpponents = async function (userData) {
@@ -95,7 +111,7 @@ WarGame.getOpponents = async function (userData) {
   return opponents;
 }
 
-function createJWT (userData) {
+function createJWT(userData) {
   console.log(`Creating JWT. User ID: ${JSON.stringify(userData)}`);
   return jwt.sign({
     username: userData.userName,

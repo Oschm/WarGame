@@ -12,7 +12,23 @@ export default {
       lastName: '',
       wins: 0,
       losses: 12,
+      games: [],
     },
+    headers: [{
+        text: 'Opponent',
+        align: 'start',
+        sortable: false,
+        value: 'user2',
+      },
+      {
+        text: 'Winner',
+        value: 'Winner',
+      },
+      {
+        text: 'GameOver',
+        value: 'gameOver',
+      },
+    ],
   }),
   components: {
     HeaderComp,

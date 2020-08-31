@@ -23,7 +23,9 @@ const gameSchema = Joi.object({
         return new Date();
     }),
     "endTime": Joi.date(),
-    "invitationPending": Joi.boolean().default(true)
+    "invitationPending": Joi.boolean().default(true),
+    "gameOver": Joi.boolean().default(false),
+    "winner" :Joi.string().default(null),
 });
 
 Game.validate = async function (gameObject) {
@@ -43,7 +45,7 @@ Game.getAll = async function () {
 Game.getGamesByUser = async function (userId) {
     Joi.assert(userId, Joi.string());
     return await GameCollection.find({
-        "user1.id": userId
+        "user1": userId
     });
 
 }

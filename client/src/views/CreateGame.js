@@ -58,7 +58,16 @@ export default {
         this.errorState = true;
         return;
       }
-      debugger;
+      const body = {};
+      body.user2 = this.selectedUser['_id'];
+      AxiosService.post('/api/game', body, this.createGameSuccess, this.createGameFail);
+    },
+    createGameSuccess() {
+      this.$router.push('Overview');
+    },
+    createGameFail() {
+      // TODO create game
+      console.log('game create error');
     },
     resetErrorState() {
       this.errorState = false;

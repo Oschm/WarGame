@@ -23,6 +23,7 @@ module.exports = {
     'space-in-parens': 'off',
     'global-require': 'off',
     'no-undef': 'off',
-    'max-len': 'off'
+    'max-len': 'off',
+    'dot-notation': 'off',
   },
 };
