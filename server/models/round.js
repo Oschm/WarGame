@@ -1,13 +1,3 @@
-const url = process.env.MONGO_URL; // Connection URL
-const db = require('monk')(url);
-
-db.on('timeout', () => {
-    console.log("timeout");
-})
-
-var Round = {};
-const RoundCollection = db.get('Round');
-
 const Joi = require('joi');
 
 
@@ -22,20 +12,43 @@ const roundSchema = Joi.object({
     "user1PlayTime": Joi.date().default(null),
     "user2PlayTime": Joi.date().default(null),
 });
+class Round {
 
-Round.validate = async function (gameObject) {
-    return await RoundCollection.validateAsync(gameObject);
+    constructor(round) {
+        try {
+            console.log(`Round Constructor: creating new Round: ${round}`);
 
-};
+        } catch {
+            throw (error);
+        }
+    }
 
-Round.create = async function (data) {
-    return await RoundCollection.insert(data);
-};
+    Round.validate = async function (gameObject) {
+        return await RoundCollection.validateAsync(gameObject);
 
-Round.getAll = async function () {
-    return await RoundCollection.find({});
-}
-Round.getRoundsByGameId = async function () {
+    };
+
+    Round.create = async function (data) {
+        return await RoundCollection.insert(data);
+    };
+
+    Round.getAll = async function () {
+        return await RoundCollection.find({});
+    }
+    Round.getRoundsByGameId = async function (gameId) {
+        try {
+            console.log(`Get Rounds for Game with id: ${gameId}`);
+            return await RoundCollection.find({
+                "gameId": gameId,
+            });
+        } catch (error) {
+            throw (error);
+        }
+
+    }
+    Round.getRoundsByGame = async function (gameIds) {
+        console.log(`Get Rounds for Games: ${JSON.stringify(gameId)}`);
+    }
 
 }
 

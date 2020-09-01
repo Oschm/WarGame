@@ -13,6 +13,9 @@ var Game = {};
 const GameCollection = db.get('Game');
 
 const Joi = require('joi');
+const {
+    size
+} = require('lodash');
 
 //user1 not required because it is set by backend
 const gameSchema = Joi.object({
@@ -25,7 +28,7 @@ const gameSchema = Joi.object({
     "endTime": Joi.date(),
     "invitationPending": Joi.boolean().default(true),
     "gameOver": Joi.boolean().default(false),
-    "winner" :Joi.string().default(null),
+    "winner": Joi.string().default(null),
 });
 
 Game.validate = async function (gameObject) {
@@ -42,12 +45,20 @@ Game.getAll = async function () {
     return await GameCollection.find({});
 }
 
-Game.getGamesByUser = async function (userId) {
+Game.getGamesByUser = async function (userId, filter = {}) {
     Joi.assert(userId, Joi.string());
-    return await GameCollection.find({
-        "user1": userId
-    });
+    // check if filter object contains correct properties
+    try {
+        if (size(filter)) {
+            gameSchema.validateAsync(filter);
+        }
+        let query = filter;
+        query.user1 = userId;
+        return await GameCollection.find(filter);
 
+    } catch (error) {
+        throw (error);
+    }
 }
 
 module.exports = Game;

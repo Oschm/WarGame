@@ -60,10 +60,13 @@ WarGame.createGame = async function (gameData, creatingUser) {
     console.log("validated:  " + JSON.stringify(gameData));
     var createdGame = await Game.create(gameData);
     console.log(JSON.stringify(createdGame));
+    let firstRound = Round.
     var firstRound = {
       "gameId": createdGame["_id"]
     }
-    firstRound = await Round.create(firstRound);
+    createdGame.rounds = [];
+    createdGame.rounds.push()
+    firstRound = await Game.create(firstRound);
 
     return createdGame;
   } catch (error) {
@@ -75,7 +78,8 @@ WarGame.getUserData = async function (userId) {
   console.log(`Get UserData for User with id: ${userId}`);
   try {
     var userData = await User.getById(userId);
-    var gameData = await this.getGamesByUser(userId);
+    //add game data of last 5 open games if exist
+    var gameData = await this.getOpenGamesByUser(userId);
     userData.games = gameData;
     return userData;
   } catch (error) {
@@ -91,6 +95,41 @@ WarGame.getGamesByUser = async function (userId) {
     //get all round for these games
 
     //determine if games are over or not
+
+    return games;
+  } catch (error) {
+    throw (error);
+  }
+}
+
+
+WarGame.getOpenGamesByUser = async function (userId) {
+  //get all games for this user
+  console.log(`Get Open Games from User with id: ${userId}`);
+  try {
+    let games = await Game.getGamesByUser(userId, {
+      gameOver: false
+    });
+    //get all rounds for these games
+    _.each(games, function (game, index, games) {
+      games[index].rounds = Round.getRoundsByGameId(game._id);
+    })
+    return games;
+  } catch (error) {
+    throw (error);
+  }
+}
+
+
+WarGame.getClosedGamesByUser = async function (userId) {
+  //get all games for this user
+  console.log(`Get Closed Games from User with id: ${userId}`);
+  try {
+    var games = await Game.getGamesByUser(userId, {
+      gameOver: true
+    });
+    //get all rounds for these games
+
 
     return games;
   } catch (error) {
