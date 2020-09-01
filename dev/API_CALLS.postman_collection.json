@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "eda1a6ae-6ea7-4478-a998-a5a48940f70d",
+		"_postman_id": "6da0a291-6d79-4624-a90e-d92493002773",
 		"name": "WarGame",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"firstName\": \"Patrick\",\r\n\t\"lastName\": \"Schmidt\",\r\n\t\"email\": \"patrick.schmidt@ibsolution.de\",\r\n\t\"password\": \"Init1234\"\r\n}"
+					"raw": "{\r\n\t\"firstName\": \"Oliver\",\r\n\t\"lastName\": \"Schmidt\",\r\n\t\"email\": \"oliver.schmidt@ibsolution.de\",\r\n\t\"password\": \"Init1234\"\r\n}"
 				},
 				"url": {
 					"raw": "{{API_ENDPOINT}}/api/login/signup",
@@ -47,7 +47,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"userName\":\"oliver.schmidt@ibsolution.de\",\"password\":\"Trustno!1\"}"
+					"raw": "{\"userName\":\"oliver.schmidt@ibsolution.de\",\"password\":\"Init1234\"}"
 				},
 				"url": {
 					"raw": "{{API_ENDPOINT}}/api/login",
@@ -69,7 +69,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg5NDQ0OX0.f0rrvNhwzZIUgU9U5-r4QJWjbZ7TRo33hc-fI_pyrts",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRlMWEzNWE1MTVmOTU2NThlM2U3NzgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODk1ODEzOH0.m7h7caxtJ5DIDZ5Wqhx5HQiA7MDSffP83EFpS4B8wE0",
 						"type": "text"
 					}
 				],
@@ -147,7 +147,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg4NjUxOX0.jY0HAPuvzm8DPvxyE2o_Aff1nsf_hOw51z4u0KgNkCk",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRlMWEzNWE1MTVmOTU2NThlM2U3NzgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODk1ODEzOH0.m7h7caxtJ5DIDZ5Wqhx5HQiA7MDSffP83EFpS4B8wE0",
 						"type": "text"
 					}
 				],
@@ -173,7 +173,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "225afbd9-7722-4c49-8908-c0a64a0d4d0c",
+				"id": "2afb69a9-7180-4659-b723-0b25b66d5663",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -183,7 +183,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "2316eabb-51b0-4d39-b87d-5e7c44b7c7be",
+				"id": "4cc6f77f-9dc1-43b1-8ca7-a276592fd741",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -193,7 +193,7 @@
 	],
 	"variable": [
 		{
-			"id": "f4f3e687-9772-4d44-8a47-99c2db1c9c44",
+			"id": "5d16918e-c85b-407d-9f34-98b759a8c910",
 			"key": "API_ENDPOINT",
 			"value": "localhost:27016"
 		}
