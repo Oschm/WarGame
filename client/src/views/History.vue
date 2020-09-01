@@ -36,7 +36,7 @@
       <HeaderComp v-bind:userData="userData"> </HeaderComp>
       <v-divider></v-divider>
       <v-container class="ma-2 pa-2" fluid>
-        <h2>Current Games</h2>
+        <h2>All Games</h2>
         <v-row align="start" justify="start">
           <v-col class="text-center" cols="1" sm="10">
             <v-data-table disable-pagination="true" :headers="headers" :items="userData.games"
@@ -51,4 +51,4 @@
     </v-footer>
   </v-app>
 </template>
-<script src="./Overview.js" />
+<script src="./History.js" />

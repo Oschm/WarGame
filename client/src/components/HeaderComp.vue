@@ -2,7 +2,7 @@
   <div class="header">
     <h1>Welcome Back, {{ userData.firstName }} {{ userData.lastName }}!</h1>
     <h2>
-      {{userData.wins > 0 && userData.losses > 0 ? 'Win/Loss Ratio: ' + userData.wins + '/' + userData.losses : 'No games played yet.'}}
+      {{userData.wins > 0 || userData.losses > 0 ? 'Win/Loss Ratio: ' + userData.wins + '/' + userData.losses : 'No games played yet.'}}
     </h2>
   </div>
 </template>

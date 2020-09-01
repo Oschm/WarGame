@@ -17,7 +17,6 @@
             type="email" v-model="userName" :rules="emailRules" :error-messages="errorMessage"
             required>
           </v-text-field>
-
           <v-text-field ref="password" label="Password" name="password" prepend-icon="mdi-lock"
             type="password" v-model="password" :rules="passwordRules" :error-messages="errorMessage"
             required></v-text-field>

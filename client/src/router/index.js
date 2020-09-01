@@ -27,6 +27,12 @@ const routes = [{
     name: 'CreateGame',
     component: () => import( /* webpackChunkName: "Overview" */ '../views/CreateGame.vue'),
   },
+  {
+    path: '/History',
+    name: 'History',
+    component: () => import( /* webpackChunkName: "Overview" */ '../views/History.vue'),
+
+  },
 ];
 
 const router = new VueRouter({

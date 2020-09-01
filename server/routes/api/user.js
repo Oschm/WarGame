@@ -12,6 +12,7 @@ router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
         console.log(`get user:  ${JSON.stringify(req.user)}`);
         if (req.user && req.user.userId) {
             // var user = await User.getById(req.user.userId);
+            //get user and last 5 games
             var user = await warGame.getUserData(req.user.userId);
             console.log(`Got User from DB ${JSON.stringify(user)}`);
             return res.json(user);
@@ -35,10 +36,10 @@ router.get('/all', async (req, res, next) => {
 });
 
 // get possible pleayers to play with
-router.get('/opponents',JWTMiddleWare.authenticateJWT, async (req, res, next) => {
+router.get('/opponents', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
     try {
         console.log('get possible opponents');
-        var opponents =  await warGame.getOpponents(req.user);
+        var opponents = await warGame.getOpponents(req.user);
         console.log(`Possible Players: ${JSON.stringify(opponents)}`);
         return res.json(opponents);
     } catch (error) {
