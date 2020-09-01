@@ -9,34 +9,18 @@
         </v-tooltip>
       </v-toolbar>
       <v-card-text>
-        <v-alert v-if="errorState" type="error" >
+        <v-alert v-if="errorState" type="error">
           {{errorMessage}}
         </v-alert>
         <v-form>
-          <v-text-field
-            ref="userName"
-            label="Login"
-            name="login"
-            prepend-icon="mdi-account"
-            type="email"
-            v-model="userName"
-            :rules="emailRules"
-            :error-messages="errorMessages"
-            required
-          >
+          <v-text-field ref="userName" label="Login" name="login" prepend-icon="mdi-account"
+            type="email" v-model="userName" :rules="emailRules" :error-messages="errorMessage"
+            required>
           </v-text-field>
 
-          <v-text-field
-            ref="password"
-            label="Password"
-            name="password"
-            prepend-icon="mdi-lock"
-            type="password"
-            v-model="password"
-            :rules="passwordRules"
-            :error-messages="errorMessages"
-            required
-          ></v-text-field>
+          <v-text-field ref="password" label="Password" name="password" prepend-icon="mdi-lock"
+            type="password" v-model="password" :rules="passwordRules" :error-messages="errorMessage"
+            required></v-text-field>
         </v-form>
       </v-card-text>
       <v-card-actions>

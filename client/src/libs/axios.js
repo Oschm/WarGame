@@ -11,8 +11,9 @@ class AxiosService {
     axios.defaults.headers.post['Content-Type'] = 'application/json';
     axios.defaults.withCredentials = true;
     axios.defaults.crossDomain = true;
+    const baseUrl = process.env.VUE_APP_BACKEND_URL;
     const service = axios.create({
-      baseURL: process.env.VUE_APP_BACKEND_URL,
+      baseURL: baseUrl,
       proxy: false,
       withCredentials: false,
       headers: {

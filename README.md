@@ -13,7 +13,8 @@ md "\data\db"
 ### start mongodb from command line
 "C:\Program Files\MongoDB\Server\4.4\bin\mongod.exe" --dbpath="c:\data\db"
 
-
+### mongodb Compass connection string
+mongodb://mongodb0.example.com:<Mongo Port>
 
 ### start server
 In server folder
