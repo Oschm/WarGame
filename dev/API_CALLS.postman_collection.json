@@ -1,119 +1,202 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "eda1a6ae-6ea7-4478-a998-a5a48940f70d",
 		"name": "WarGame",
-		"_postman_id": "6000a567-d9fb-75e6-6452-edaf226c5d2f",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "SignUp",
+			"name": "signUp",
 			"request": {
-				"url": "localhost:27016/api/login/signup",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"description": ""
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"firstName\": \"Oliver\",\n\t\"lastName\": \"Schmidt\",\n\t\"email\": \"oliver.schmidt@ibsolution.de\",\n\t\"password\": \"Trustno!1\"\n}"
+					"raw": "{\r\n\t\"firstName\": \"Patrick\",\r\n\t\"lastName\": \"Schmidt\",\r\n\t\"email\": \"patrick.schmidt@ibsolution.de\",\r\n\t\"password\": \"Init1234\"\r\n}"
 				},
-				"description": ""
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/login/signup",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"login",
+						"signup"
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "login User",
+			"name": "login",
 			"request": {
-				"url": "localhost:27016/api/login/",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
-						"description": ""
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"userName\": \"oliver.schmidt@ibsolution.de\",\n\t\"password\": \"Trust!1\"\n}"
+					"raw": "{\"userName\":\"oliver.schmidt@ibsolution.de\",\"password\":\"Trustno!1\"}"
 				},
-				"description": ""
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/login",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "getUser",
 			"request": {
-				"url": "localhost:27018/api/user",
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im9saXZlci5zY2htaWR0QGlic29sdXRpb24uZGUiLCJ1c2VySWQiOiI1ZjQ1MTMzZDIxYjliODNhY2MwZmFlNjIiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODUzNjExM30.8MCPS4rMXHL-aeQqq-9kDYeuGq8GzEZmKl5ao1eyUUU",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg5NDQ0OX0.f0rrvNhwzZIUgU9U5-r4QJWjbZ7TRo33hc-fI_pyrts",
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/user",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "getGames",
 			"request": {
-				"url": "localhost:27018/api/game",
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg4NjUxOX0.jY0HAPuvzm8DPvxyE2o_Aff1nsf_hOw51z4u0KgNkCk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/game",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOpponents",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg4NjMwNH0.XGNI3ZzOnxz_rJCGnrwnd9YepAFwxdoNRjSmMNE5sJ4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/user/opponents",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"user",
+						"opponents"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "createGame",
 			"request": {
-				"url": "localhost:27018/api/game",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg4NjUxOX0.jY0HAPuvzm8DPvxyE2o_Aff1nsf_hOw51z4u0KgNkCk",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"user2\": \"5f45197213143034e047d187\"}\r\n"
+					"raw": "{\"user2\": \"5f4cf5dc5eab995768694647\"}\r\n"
 				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "google",
-			"request": {
-				"url": "",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/game",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				}
 			},
 			"response": []
 		}
-	]
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "225afbd9-7722-4c49-8908-c0a64a0d4d0c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2316eabb-51b0-4d39-b87d-5e7c44b7c7be",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "f4f3e687-9772-4d44-8a47-99c2db1c9c44",
+			"key": "API_ENDPOINT",
+			"value": "localhost:27016"
+		}
+	],
+	"protocolProfileBehavior": {}
 }
