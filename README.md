@@ -1,7 +1,8 @@
 # WarGame
 
 # Commands Cheat Sheet
-SignUp Page npot yet implemented. when cloning use Postman API Call to create a User and then login
+SignUp Page npot yet implemented. when cloning use Postman API Call "signUp" to create new User.
+
 ## Backend
 start local node server = node index.js
 
