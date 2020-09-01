@@ -1,13 +1,56 @@
 {
+	"variables": [],
 	"info": {
-		"_postman_id": "eda1a6ae-6ea7-4478-a998-a5a48940f70d",
 		"name": "WarGame",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "6000a567-d9fb-75e6-6452-edaf226c5d2f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
+			"name": "SignUp",
+			"request": {
+				"url": "localhost:27016/api/login/signup",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Oliver\",\n\t\"lastName\": \"Schmidt\",\n\t\"email\": \"oliver.schmidt@ibsolution.de\",\n\t\"password\": \"Trustno!1\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login User",
+			"request": {
+				"url": "localhost:27016/api/login/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\": \"oliver.schmidt@ibsolution.de\",\n\t\"password\": \"Trust!1\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "getUser",
 			"request": {
+				"url": "localhost:27018/api/user",
 				"method": "GET",
 				"header": [
 					{
@@ -16,67 +59,32 @@
 						"type": "text"
 					}
 				],
-				"url": {
-					"raw": "{{API_ENDPOINT}}/api/user",
-					"host": [
-						"{{API_ENDPOINT}}"
-					],
-					"path": [
-						"api",
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "createUser",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"firstName\": \"patrick\", \"lastName\": \"schmidt\", \"email\": \"patrick.schmidt@ibsolution.de\"}"
+					"raw": ""
 				},
-				"url": {
-					"raw": "{{API_ENDPOINT}}/api/user",
-					"host": [
-						"{{API_ENDPOINT}}"
-					],
-					"path": [
-						"api",
-						"user"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "getGames",
 			"request": {
+				"url": "localhost:27018/api/game",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{API_ENDPOINT}}/api/game",
-					"host": [
-						"{{API_ENDPOINT}}"
-					],
-					"path": [
-						"api",
-						"game"
-					]
-				}
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
 			},
 			"response": []
 		},
 		{
 			"name": "createGame",
 			"request": {
+				"url": "localhost:27018/api/game",
 				"method": "POST",
 				"header": [
 					{
@@ -89,114 +97,23 @@
 					"mode": "raw",
 					"raw": "{\"user2\": \"5f45197213143034e047d187\"}\r\n"
 				},
-				"url": {
-					"raw": "{{API_ENDPOINT}}/api/game",
-					"host": [
-						"{{API_ENDPOINT}}"
-					],
-					"path": [
-						"api",
-						"game"
-					]
-				}
+				"description": ""
 			},
 			"response": []
 		},
 		{
-			"name": "login get",
-			"protocolProfileBehavior": {
-				"disabledSystemHeaders": {
-					"host": true,
-					"user-agent": true,
-					"accept": true,
-					"accept-encoding": true,
-					"connection": true
-				}
-			},
+			"name": "google",
 			"request": {
+				"url": "",
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "{{API_ENDPOINT}}/api/login",
-					"host": [
-						"{{API_ENDPOINT}}"
-					],
-					"path": [
-						"api",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"userName\": \"oliver.schmidt@ibsolution.de\",\r\n\"password\": \"Test1234\"\r\n}"
-				},
-				"url": {
-					"raw": "{{API_ENDPOINT}}/api/login",
-					"host": [
-						"{{API_ENDPOINT}}"
-					],
-					"path": [
-						"api",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getOpponents",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
 					"raw": ""
-				}
+				},
+				"description": ""
 			},
 			"response": []
 		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "225afbd9-7722-4c49-8908-c0a64a0d4d0c",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "2316eabb-51b0-4d39-b87d-5e7c44b7c7be",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"id": "59016d12-9da8-44c2-b2db-e56021f2fedb",
-			"key": "API_ENDPOINT",
-			"value": "localhost:27016"
-		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
