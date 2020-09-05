@@ -17,13 +17,13 @@ const routes = [{
     component: () => import( /* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
-    path: '/overview',
+    path: '/Overview',
     name: 'Overview',
     component: () => import( /* webpackChunkName: "Overview" */ '../views/Overview.vue'),
     // component: require('../views/Overview.vue').default,
   },
   {
-    path: '/createGame',
+    path: '/CreateGame',
     name: 'CreateGame',
     component: () => import( /* webpackChunkName: "Overview" */ '../views/CreateGame.vue'),
   },
@@ -31,7 +31,10 @@ const routes = [{
     path: '/History',
     name: 'History',
     component: () => import( /* webpackChunkName: "Overview" */ '../views/History.vue'),
-
+  }, {
+    path: '/Game/:id',
+    component: () => import( /* webpackChunkName: "Overview" */ '../views/Game.vue'),
+    props: true,
   },
 ];
 

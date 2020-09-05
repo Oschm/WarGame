@@ -14,7 +14,7 @@
         </v-alert>
         <v-form>
           <v-text-field ref="userName" label="Login" name="login" prepend-icon="mdi-account"
-            type="email" v-model="userName" :rules="emailRules" :error-messages="errorMessage"
+            type="email" v-model="userName" :rules="emailRules"
             required>
           </v-text-field>
           <v-text-field ref="password" label="Password" name="password" prepend-icon="mdi-lock"

@@ -31,7 +31,5 @@
     "@mdi/js": "^5.5.55",
     "@mdi/font": "^5.5.55"
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }

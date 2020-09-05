@@ -1,5 +1,5 @@
 <template>
-  <v-app id="history">
+  <v-app id="Game">
     <NavigationDrawer></NavigationDrawer>
     <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -9,16 +9,9 @@
       <HeaderComp v-bind:userData="userData"> </HeaderComp>
       <v-divider></v-divider>
       <v-container class="ma-2 pa-2" fluid>
-        <h2>All Games</h2>
         <v-row align="start" justify="start">
           <v-col class="text-center" cols="1" sm="10">
-            <v-data-table
-              disable-pagination="true"
-              :headers="headers"
-              :items="userData.games"
-              class="elevation-1"
-            >
-            </v-data-table>
+            <p>{{ id }}</p>
           </v-col>
         </v-row>
       </v-container>
@@ -28,4 +21,4 @@
     </v-footer>
   </v-app>
 </template>
-<script src="./History.js" />
+<script src="./Game.js" />

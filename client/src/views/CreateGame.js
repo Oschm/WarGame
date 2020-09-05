@@ -1,4 +1,5 @@
 import HeaderComp from '../components/HeaderComp';
+import NavigationDrawer from '../components/NavigationDrawer';
 import AxiosService from '../libs/axios';
 
 export default {
@@ -25,6 +26,7 @@ export default {
 
   components: {
     HeaderComp,
+    NavigationDrawer,
   },
   created() {
     // fetch the data when the view is created and the data is

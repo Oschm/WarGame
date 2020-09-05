@@ -1,40 +1,12 @@
 <template>
-  <v-app id="overview">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list dense>
-        <v-list-item link @click="onClick('Overview')">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link @click="onClick('CreateGame')">
-          <v-list-item-action>
-            <v-icon>mdi-sword-cross</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>New Game</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item link @click="onClick('History')">
-          <v-list-item-action>
-            <v-icon>mdi-history</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>History</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+  <v-app id="createGame">
+    <NavigationDrawer></NavigationDrawer>
     <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Application</v-toolbar-title>
     </v-app-bar>
     <v-main>
-      <HeaderComp v-bind:userData="userData">
-      </HeaderComp>
+      <HeaderComp v-bind:userData="userData"> </HeaderComp>
       <v-divider></v-divider>
       <v-container>
         <v-row align="start" justify="start">
@@ -44,9 +16,17 @@
                 <v-alert v-if="errorState" type="error">
                   Please select a User.
                 </v-alert>
-                <div>Start a Game with <v-combobox v-bind:error="errorState"
-                    @change="resetErrorState" v-model="selectedUser" :items="opponents"
-                    :item-text="formatter" label="Select User to play a game with" return-object>
+                <div>
+                  Start a Game with
+                  <v-combobox
+                    v-bind:error="errorState"
+                    @change="resetErrorState"
+                    v-model="selectedUser"
+                    :items="opponents"
+                    :item-text="formatter"
+                    label="Select User to play a game with"
+                    return-object
+                  >
                   </v-combobox>
                 </div>
               </v-card-text>

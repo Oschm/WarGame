@@ -1,4 +1,5 @@
 import HeaderComp from '../components/HeaderComp';
+import NavigationDrawer from '../components/NavigationDrawer';
 import AxiosService from '../libs/axios';
 
 export default {
@@ -18,20 +19,22 @@ export default {
         text: 'Opponent',
         align: 'start',
         sortable: false,
-        value: 'user2',
+        value: 'opponent.name',
       },
       {
-        text: 'Winner',
-        value: 'Winner',
+        text: 'Current Round',
+        value: 'currentRound',
       },
       {
-        text: 'GameOver',
-        value: 'gameOver',
+        text: 'Your Turn',
+        value: 'isUsersTurn',
       },
     ],
   }),
   components: {
     HeaderComp,
+    NavigationDrawer,
+
   },
   created() {
     // fetch the data when the view is created and the data is
@@ -39,7 +42,6 @@ export default {
     console.log('loading');
     this.loadUserData();
   },
-
   methods: {
     loadUserData() {
       // console log loading userData
@@ -58,6 +60,11 @@ export default {
           userData: this.userData,
         },
       });
+    },
+    handleRowClick(item) {
+      console.log('handleRowClick');
+      const gameId = item.id;
+      this.$router.push(`Game/${gameId}`);
     },
   },
 };

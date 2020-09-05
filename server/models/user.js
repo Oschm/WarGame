@@ -48,11 +48,13 @@ User.create = async function (data) {
     }
 };
 User.getById = async function (userId) {
-    var userArray = await UserCollection.find({
+    console.log(`Get User by id: ${userId}`);
+    var user = await UserCollection.findOne({
         "_id": userId
-    });
-    if (_.size(userArray) === 1) {
-        return userArray[0];
+    }, { projection: {hashedPassword: 0} });
+    if (user) {
+        console.log(`Found User: ${JSON.stringify(user)}`)
+        return user;
     } else {
         throw Error("User does not exist");
     }

@@ -16,7 +16,7 @@ router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
     try {
         console.log(`get all games for User`);
         if (req.user && req.user.userId && req.user.role) {
-            var games = await warGame.getGamesByUser(req.user.userId);
+            var games = await warGame.getGames(req.user.userId);
             return res.json(games);
         } else
             throw new Error("Authentication Error");
