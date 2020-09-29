@@ -7,7 +7,7 @@ export default {
     source: String,
   },
   data: () => ({
-    drawer: null,
+    drawer: true,
     userData: {
       firstName: '',
       lastName: '',

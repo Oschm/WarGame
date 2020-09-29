@@ -25,6 +25,20 @@ router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
     }
 });
 
+router.get('/:gameId', JWTMiddleWare.authenticateJWT, async (req, res, next) =>{
+    try {
+        console.log(`Get Game: ${req.params.gameId} for user. ${req.user.userId}`);
+        if (req.user && req.user.userId && req.user.role) {
+            let games = await warGame.getPersonalizedGameById(req.user.userId, req.params.gameId);
+            return res.json(games);
+        } else
+            throw new Error("Authentication Error");
+    } catch (error) {
+        next(error);
+    }
+
+});
+
 //show all games for admins
 router.get('/all'), async (req, res, next) => {
     //check if user has role admin

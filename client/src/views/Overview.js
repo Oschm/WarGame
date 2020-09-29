@@ -7,7 +7,7 @@ export default {
     source: String,
   },
   data: () => ({
-    drawer: null,
+    drawer: true,
     userData: {
       firstName: '',
       lastName: '',
@@ -18,7 +18,6 @@ export default {
     headers: [{
         text: 'Opponent',
         align: 'start',
-        sortable: false,
         value: 'opponent.name',
       },
       {
@@ -64,7 +63,9 @@ export default {
     handleRowClick(item) {
       console.log('handleRowClick');
       const gameId = item.id;
-      this.$router.push(`Game/${gameId}`);
+      this.$router.push(`Game/${gameId}`, {
+        userData: this.userData,
+      });
     },
   },
 };

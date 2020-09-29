@@ -16,7 +16,8 @@ const GameCollection = db.get('Game');
 
 const Joi = require('joi');
 const {
-    size
+    size,
+    filter
 } = require('lodash');
 
 //user1 not required because it is set by backend
@@ -53,6 +54,44 @@ Game.getAll = async function () {
     return await GameCollection.find({});
 }
 
+Game.getGameById = async function (gameId) {
+    try {
+        console.log(`Get Game by Id: ${gameId}`);
+        let cond = [];
+        cond.push(this._createOrFilter("$eq", {
+            "_id": gameId
+        }));
+        cond.push(this._createUserLookup('user1'));
+        cond.push(this._createUserLookup('user2'));
+        cond.push({
+            $project: {
+                "user1.email": 0,
+                "user1.hashedPassword": 0,
+                "user1.createdOn": 0,
+                "user2.email": 0,
+                "user2.hashedPassword": 0,
+                "user2.createdOn": 0
+            }
+        });
+        console.log(`FilterCondition: ${JSON.stringify(cond)}`);
+        let game = await GameCollection.aggregate(cond);
+        // the two joins with user1 and user2 create arrays with one object but we want object
+        game = _.each(game, function (obj) {
+            obj.user1 = _.head(obj.user1);
+            obj.user1.name = `${obj.user1.firstName} ${obj.user1.lastName}`;
+            obj.user2 = _.head(obj.user2);
+            obj.user2.name = `${obj.user2.firstName} ${obj.user2.lastName}`;
+        });
+        if (_.size(game) === 1) {
+            return _.head(game);
+        } else {
+            throw new Error("no Game found");
+        }
+    } catch (error) {
+        throw (error);
+    }
+}
+
 Game.getGamesByUser = async function (userId, filter = {}) {
     Joi.assert(userId, Joi.string());
     // check if filter object contains correct properties
@@ -75,15 +114,15 @@ Game.getGamesByUser = async function (userId, filter = {}) {
             }
         });
         console.log(`aggregation steps: ${JSON.stringify(cond)}`);
-        let userData = await GameCollection.aggregate(cond);
+        let gameData = await GameCollection.aggregate(cond);
         // the two joins with user1 and user2 create arrays with one object but we want object
-        userData = _.each(userData, function (obj) {
+        gameData = _.each(gameData, function (obj) {
             obj.user1 = _.head(obj.user1);
             obj.user1.name = `${obj.user1.firstName} ${obj.user1.lastName}`;
             obj.user2 = _.head(obj.user2);
             obj.user2.name = `${obj.user2.firstName} ${obj.user2.lastName}`;
         });
-        return userData;
+        return gameData;
     } catch (error) {
         throw (error);
     }
@@ -101,34 +140,56 @@ Game.addRound = async function (gameId, round) {
 }
 
 Game._createUserFilter = function (userId, filter) {
-    let config = {
-        $match: {
-            $or: [{
-                user1: {
-                    $eq: Monk.id(userId)
-                }
-            }, {
-                user2: {
-                    $eq: Monk.id(userId)
-                }
-            }],
-        }
-    }
-    if (_.size(filter) > 1) {
-        config.$match.$and = [];
-        _.each(filter, function (filterValue, filterProperty) {
-            let filterObject = {};
-            filterObject[filterProperty] = {
-                $eq: filterValue
-            };
-            config.$match.$and.push(filterObject);
-        }.bind(this))
-    }
-
-
-
-    return config;
+    filter["userId"] = userId;
+    let userFilter = this._createOrFilter("$eq", filter);
+    console.log(`createUserFilter: ${JSON.stringify(userFilter)}`);
+    return userFilter;
 }
+
+Game._createOrFilter = function (filterOption, filter = {}) {
+    console.log(`createOrFilter: ${filterOption}, filter: ${JSON.stringify(filter)}`)
+    if (_.size(filter) >= 1) {
+        let config = {
+            $match: {
+                $or: [],
+            }
+        }
+
+        config = this._appendOrFilter(config, filterOption, filter);
+        console.log(`CreatedOrFilter: ${JSON.stringify(config)}`);
+        return config;
+    } else {
+        throw new Error("filter should contain one or more propetries")
+    }
+}
+
+Game._appendOrFilter = function (config, filterOption, filters) {
+    console.log(`Entering appenOrFilter. config: ${JSON.stringify(config)}, filterOption: ${filterOption}, filters: ${JSON.stringify(filters)}`);
+    try {
+        if (_.isObject(filters) && config.$match && config.$match.$or && _.isArray(config.$match.$or)) {
+            _.each(filters, function (filterValue, filterProperty) {
+                let filterObject = this._createFilterObject(filterProperty, filterOption, filterValue);
+                config.$match.$or.push(filterObject);
+            }.bind(this));
+            return config;
+        } else {
+            throw new Error("filters must be an array");
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
+Game._createFilterObject = function (filterProperty, filterOption, filterValue) {
+    console.log(`Create Filter Object: Property: ${filterProperty}, Option: ${filterOption}, filterValue: ${filterValue}`)
+    let filterObject = {};
+    let filter = {};
+    filterObject[filterOption] = _.includes(_.lowerCase(filterProperty), "id") ? Monk.id(filterValue) : filterValue;
+    filter[filterProperty] = filterObject;
+    console.log(`Created Filter Object: ${JSON.stringify(filter)}`);
+    return filter;
+}
+
 Game._createUserLookup = function (locaField) {
     return {
         $lookup: {

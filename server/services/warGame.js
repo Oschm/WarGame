@@ -4,7 +4,9 @@ var _ = require('lodash');
 const User = require('../models/user.js');
 var passwordHash = require('password-hash');
 const jwt = require('jsonwebtoken');
-const { first } = require('lodash');
+const {
+  first
+} = require('lodash');
 
 //var game = require();
 
@@ -80,8 +82,8 @@ WarGame.getUserData = async function (userId) {
   try {
     var userData = await User.getById(userId);
     //add game data of last 5 open games if exist
-   var gameData = await Game.getOpenGamesByUser(userId);
-   // extend gameData with fields
+    var gameData = await Game.getOpenGamesByUser(userId);
+    // extend gameData with fields
     userData.games = gameData;
     return userData;
   } catch (error) {
@@ -93,20 +95,36 @@ WarGame.getUserData = async function (userId) {
 
 
 WarGame.getOpponents = async function (userData) {
-  let allUsers = await User.getAll(['_id', 'firstName', 'lastName']);
-  console.log(`Users from DB: ${JSON.stringify(allUsers)}`);
-  let opponents = _.remove(allUsers, function (user) {
-    console.log(typeof user._id.toString());
-    console.log(typeof userData.userId);
-    console.log(`UserId: ${user._id}, UserId: ${userData.userId}, bool: ${user._id.toString() !== userData.userId}`);
-    return user._id.toString() !== userData.userId;
-  });
-  console.log(`Users from DB: ${JSON.stringify(opponents)}`);
-  return opponents;
+  try {
+    let allUsers = await User.getAll(['_id', 'firstName', 'lastName']);
+    console.log(`Users from DB: ${JSON.stringify(allUsers)}`);
+    let opponents = _.remove(allUsers, function (user) {
+      console.log(typeof user._id.toString());
+      console.log(typeof userData.userId);
+      console.log(`UserId: ${user._id}, UserId: ${userData.userId}, bool: ${user._id.toString() !== userData.userId}`);
+      return user._id.toString() !== userData.userId;
+    });
+    console.log(`Users from DB: ${JSON.stringify(opponents)}`);
+    return opponents;
+  } catch (error) {
+    throw (error);
+  }
 }
 
-WarGame.getGames = async function(userId){
-  return await await Game.getGamesByUser(userId);
+WarGame.getGames = async function (userId) {
+  return await Game.getGamesByUser(userId);
+}
+
+WarGame.getPersonalizedGameById = async function (userId, gameId) {
+  try {
+    console.log(`Get Game by Id: ${gameId} for User: ${userId}`);
+    //get Game with filter for gameId and UserId.
+    let game = await Game.getPersonalizedGameById(userId, gameId);
+    return game;
+  } catch (error) {
+    throw (error);
+  }
+
 }
 
 function createJWT(userData) {
@@ -115,7 +133,9 @@ function createJWT(userData) {
     username: userData.userName,
     userId: userData._id,
     role: "user"
-  }, process.env.JWT_SECRET,  {expiresIn: '30m'});
+  }, process.env.JWT_SECRET, {
+    expiresIn: '30m'
+  });
 }
 
 module.exports = WarGame;

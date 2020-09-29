@@ -31,6 +31,9 @@
 <script>
 export default {
   render: (h) => h(NavigationDrawer),
+      props: {
+      drawer: Boolean,
+    },
   methods: {
     onClick(route) {
       this.$router.push({
