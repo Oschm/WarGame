@@ -68,7 +68,7 @@ Game.prototype.mapProperties = function (game, personalized, userId) {
         }
         currentRound = new Round(game.rounds[currentRoundNumber - 1])
         // isUsersTurn set get current Round and check if user has already played
-        this.isUsersTurn = currentRound.hasUserPlayed(currentUserColumn);
+        this.isUsersTurn = !currentRound.hasUserPlayed(currentUserColumn);
     }
     console.log(`Mapped Properties: ${JSON.stringify(this)}`);
 }
@@ -83,7 +83,33 @@ Game.prototype.create = async function () {
     }
 }
 Game.prototype.addRound = async function (round) {
-    GameModel.addRound(this.id, round);
+    return await GameModel.addRound(this.id, round);
+}
+Game.prototype.updateRound = async function (round) {
+    console.log(`Updating Round for Game ${this.id}, with round ${JSON.stringify(round)}`);
+    return await GameModel.updateRound(this.id, round.roundNumber, round);
+}
+Game.prototype.endGame = async function () {
+    console.log(`Ending Game: ${this}`);
+    this.endTime = new Date(),
+        this.gameOver = true;
+
+    //check winner
+    let lastRound = _.last(_.sortBy(this.rounds, 'roundNumber'));
+    console.log(JSON.stringify(lastRound));
+    if (lastRound.user1Health > lastRound.user2Health) {
+        this.winner = "user1";
+    } else if (lastRound.user2Health > lastRound.user1Health) {
+        this.winner = "user2";
+    } else {
+        this.winner = "Draw";
+    }
+    return await GameModel.update(this.id, {
+        endTime: this.endTime,
+        gameOver: this.gameOver,
+        winner: this.winner,
+    }, );
+
 }
 
 Game.getOpenGamesByUser = async function (userId) {
@@ -153,14 +179,25 @@ Game.getPersonalizedGameById = async function (userId, gameId) {
         console.log(`Enter getPersonalizedGameById : ${gameId}, for User ${userId}`);
         let game = await GameModel.getGameById(gameId);
         console.log(`Got Game ${JSON.stringify(game)}`);
-        if(game.user1._id.toString() !== userId && game.user2._id.toString() !== userId){
+        if (game.user1._id.toString() !== userId && game.user2._id.toString() !== userId) {
             throw new Error("User not part of this Game!");
         }
         return new Game(game, true, userId);
     } catch (error) {
         throw (error);
     }
-
 }
+
+Game.getGameById = async function (gameId) {
+    try {
+        console.log(`Enter getGameById : ${gameId}`);
+        let game = await GameModel.getGameById(gameId);
+        console.log(`Got Game ${JSON.stringify(game)}`);
+        return new Game(game);
+    } catch (error) {
+        throw (error);
+    }
+}
+
 
 module.exports = Game;

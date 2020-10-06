@@ -59,5 +59,24 @@ router.post('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
     }
 });
 
+//play round
+//expects following body {attack: 1, defend:2}
+router.post('/:gameId/round/:roundId', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
+    try {
+        console.log("Play Round");
+        let gameId = req.params.gameId;
+        let roundId = req.params.roundId;
+        var userId = req.user.userId;
+        let body = req.body;
+        if(!body.attack || !body.defend){
+            throw new Error('Body needs properties "attack" and "defend"');
+        }
+        var result = await warGame.playRound(gameId, roundId, userId, body);
+        return res.json(result);
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 module.exports = router;

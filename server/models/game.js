@@ -17,8 +17,12 @@ const GameCollection = db.get('Game');
 const Joi = require('joi');
 const {
     size,
-    filter
+    filter,
+    join
 } = require('lodash');
+const {
+    default: monk
+} = require('monk');
 
 //user1 not required because it is set by backend
 const gameSchema = Joi.object({
@@ -32,6 +36,7 @@ const gameSchema = Joi.object({
     "invitationPending": Joi.boolean().default(true),
     "gameOver": Joi.boolean().default(false),
     "winner": Joi.string().default(null),
+    "rounds": Joi.array().default([]),
 });
 
 Game.validate = async function (gameObject) {
@@ -49,6 +54,15 @@ Game.create = async function (data) {
         throw (error);
     }
 };
+Game.update = async function (gameId, data) {
+    console.log(`Updating Game:${gameId} with following data: ${JSON.stringify(data)}`);
+    return await GameCollection.update({
+        "_id": monk.id(gameId),
+    }, {
+        $set: data,
+    }, );
+
+}
 
 Game.getAll = async function () {
     return await GameCollection.find({});
@@ -137,6 +151,18 @@ Game.addRound = async function (gameId, round) {
             rounds: round
         }
     });
+}
+
+Game.updateRound = async function (gameId, roundNumber, round) {
+    console.log(`Update Round for gameId: ${gameId}, roundNumber: ${roundNumber}, round: ${JSON.stringify(round)}`);
+    return await GameCollection.update({
+        "_id": monk.id(gameId),
+        "rounds.roundNumber": roundNumber,
+    }, {
+        $set: {
+            "rounds.$": round,
+        },
+    }, );
 }
 
 Game._createUserFilter = function (userId, filter) {

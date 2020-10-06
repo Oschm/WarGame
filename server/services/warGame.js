@@ -5,7 +5,8 @@ const User = require('../models/user.js');
 var passwordHash = require('password-hash');
 const jwt = require('jsonwebtoken');
 const {
-  first
+  first,
+  round
 } = require('lodash');
 
 //var game = require();
@@ -70,7 +71,7 @@ WarGame.createGame = async function (gameData, creatingUser) {
     firstRound = await firstRound.validate();
     console.log(`Validated first Round: ${JSON.stringify(firstRound)}`);
     await createdGame.addRound(firstRound);
-    createdGame.round = firstRound;
+    createdGame.rounds = firstRound;
     return createdGame;
   } catch (error) {
     throw (error);
@@ -127,15 +128,79 @@ WarGame.getPersonalizedGameById = async function (userId, gameId) {
 
 }
 
+WarGame.playRound = async function (gameId, roundId, userId, roundData) {
+  console.log(`Play Round: gameId: ${gameId}, roundId: ${roundId}, userId: ${userId}, roundData: ${JSON.stringify(roundData)}`);
+  let game = await Game.getGameById(gameId);
+  let rounds = game.rounds;
+  console.log(`get rounds ${JSON.stringify(rounds)} for roundId ${roundId}`);
+  let round = _.find(rounds, function (round) {
+    return round.roundNumber.toString() === roundId.toString();
+  }.bind(this));
+  if (!round) {
+    throw new Error("No Round found");
+  }
+  console.log(JSON.stringify(round));
+  let requiredRound = new Round(round);
+  //check if user has already played that round
+  let userColumn = _.findKey(game, function (value) {
+    if (value && value._id) {
+      return value._id.toString() === userId.toString();
+    } else
+      return false;
+  }.bind(this));
+  if (!userColumn) {
+    throw new Error("User not part of the game");
+  }
+  if (requiredRound.hasUserPlayed(userColumn)) {
+    throw new Error("User already played that round");
+  }
+  requiredRound.playRound(userColumn, roundData.attack, roundData.defend);
+  //if round is over the winner is determined and a new round is created
+  if (requiredRound.isRoundOver()) {
+    //determine result
+    requiredRound.determineRoundResult();
+    game.updateRound(requiredRound);
+    if (roundId.toString() === game.playerHealth.toString()) {
+      //if lastround create result of game
+      await game.endGame();
+      return {
+        success: true
+      };
+    } else {
+      //else create new round
+      let newRound = new Round({
+        roundNumber: requiredRound.roundNumber + 1,
+        user1Health: requiredRound.user1Health,
+        user2Health: requiredRound.user2Health,
+      });
+      let result = await game.addRound(newRound);
+      console.log(result);
+
+      return {
+        success: true
+      };
+    }
+  } else {
+    let result = await game.updateRound(requiredRound);
+    if (result.nModified === 1) {
+      return 'Round Played';
+    } else {
+      throw new Error("Error updating Round");
+    }
+  }
+}
+
 function createJWT(userData) {
   console.log(`Creating JWT. User ID: ${JSON.stringify(userData)}`);
+  /*let config = {
+    expiresIn: '30m'
+  }*/
+  let config = {};
   return jwt.sign({
     username: userData.userName,
     userId: userData._id,
     role: "user"
-  }, process.env.JWT_SECRET, {
-    expiresIn: '30m'
-  });
+  }, process.env.JWT_SECRET, config);
 }
 
 module.exports = WarGame;
