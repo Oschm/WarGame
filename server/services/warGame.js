@@ -115,6 +115,27 @@ WarGame.getOpponents = async function (userData) {
 WarGame.getGames = async function (userId) {
   return await Game.getGamesByUser(userId);
 }
+WarGame.getGameHistory = async function (userId) {
+  let games = await Game.getClosedGamesByUser(userId);
+  let gamesWithoutDraws = _.filter(games, function (game) {
+    return game.winner !== "Draw";
+  });
+  console.log(`gameswithoutdraws: ${JSON.stringify(gamesWithoutDraws)}` )
+  let wins = _.size(_.filter(gamesWithoutDraws, function (game) {
+    return game.winner["_id"].toString() === userId.toString();
+  }.bind(this)));
+  let losses = _.size(_.filter(gamesWithoutDraws, function (game) {
+    return game.winner["_id"].toString() !== userId.toString();
+  }.bind(this)));
+  let draws = _.size(games) - _.size(gamesWithoutDraws);
+  let result = {
+    wins,
+    losses,
+    draws,
+    games,
+  };
+  return result;
+}
 
 WarGame.getPersonalizedGameById = async function (userId, gameId) {
   try {

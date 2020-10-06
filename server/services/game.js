@@ -59,6 +59,9 @@ Game.prototype.mapProperties = function (game, personalized, userId) {
         let currentUserColumn = (game.user2._id.toString() === userId) ? 'user2' : 'user1';
         let opponentUserColumn = (game.user2._id.toString() === userId) ? 'user1' : 'user2';
         this.opponent = game[opponentUserColumn];
+        if(game.winner !== "Draw"){
+            this.winner = game[game.winner];
+        }
         delete game.user1;
         delete game.user2;
         // check currentRound
@@ -165,10 +168,16 @@ Game.getGamesByUser = async function (userId, filter = {}) {
 
 Game.getClosedGamesByUser = async function (userId) {
     //get all games for this user
-    console.log(`Get Closed Games from User with id: ${userId}`);
+    console.log(`Get Open Games from User with id: ${userId}`);
     try {
-        return await this.getGamesByUser(userId, true);
-        //get all rounds for these games
+        let games = await this.getGamesByUser(userId, {
+            gameOver: true
+        });
+        games = _.map(games, function (game) {
+            return new Game(game, true, userId);
+        });
+
+        return games;
     } catch (error) {
         throw (error);
     }

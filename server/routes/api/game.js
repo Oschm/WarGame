@@ -25,6 +25,20 @@ router.get('/', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
     }
 });
 
+//get all games by User
+router.get('/history', JWTMiddleWare.authenticateJWT, async (req, res, next) => {
+    try {
+        console.log(`get all games for User`);
+        if (req.user && req.user.userId && req.user.role) {
+            var games = await warGame.getGameHistory(req.user.userId);
+            return res.json(games);
+        } else
+            throw new Error("Authentication Error");
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.get('/:gameId', JWTMiddleWare.authenticateJWT, async (req, res, next) =>{
     try {
         console.log(`Get Game: ${req.params.gameId} for user. ${req.user.userId}`);
