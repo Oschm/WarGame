@@ -25,5 +25,6 @@ module.exports = {
     'no-undef': 'off',
     'max-len': 'off',
     'dot-notation': 'off',
+    'prefer-destructuring': 'off',
   },
 };

@@ -49,7 +49,7 @@
             <v-data-table
               disable-pagination="true"
               :headers="oldRoundsHeaders"
-              :items="rounds"
+              :items="oldRounds"
               class="elevation-1"
             >
             </v-data-table>

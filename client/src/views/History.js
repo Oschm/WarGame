@@ -49,11 +49,11 @@ export default {
         text: 'Opponent',
         align: 'start',
         sortable: false,
-        value: 'user2',
+        value: 'opponent.name',
       },
       {
         text: 'Winner',
-        value: 'Winner',
+        value: 'winner.name',
       },
       {
         text: 'GameOver',
@@ -69,18 +69,23 @@ export default {
     // fetch the data when the view is created and the data is
     // already being observed
     console.log('loading');
-    // this.loadUserData();
+    this.userData = this.$route.params.userData;
+    this.userData.wins = 12;
+    this.userData.losses = 5;
+    this.loadGameHistoryData();
   },
 
   methods: {
-    loadUserData() {
-      // console log loading userData
-      AxiosService.get('api/user', this.getUserDataSuccess, this.getUserDataSuccess);
+    loadGameHistoryData() {
+      // console log loading gameData
+      AxiosService.get('api/game/history', this.getGameDataSuccess, this.getGameDataFail);
     },
-    getUserDataSuccess(response) {
-      this.userData = response.data;
+    getGameDataSuccess(response) {
+      Object.assign(this.userData, response.data);
+      this.userData.wins = response.data.wins;
+      this.userData.losses = response.data.losses;
     },
-    getUserDataFail(error) {
+    getGameDataFail(error) {
       alert(error.message);
     },
     onClick(route) {

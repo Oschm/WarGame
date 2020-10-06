@@ -1,6 +1,7 @@
 import HeaderComp from '../components/HeaderComp';
 import NavigationDrawer from '../components/NavigationDrawer';
-// import AxiosService from '../libs/axios';
+import AxiosService from '../libs/axios';
+import _ from '../libs/lodash';
 
 export default {
   props: {
@@ -38,7 +39,7 @@ export default {
       (v) => !!v || 'Please chose a Value',
     ],
     drawer: true,
-    rounds: [],
+    oldRounds: [],
     oldRoundsHeaders: [{
         text: 'Round Number',
         align: 'start',
@@ -73,9 +74,21 @@ export default {
     console.log('loading');
     this.userData = this.$route.params.userData;
     this.gameId = this.$route.params.id;
-    // this.loadUserData();
+    this.loadGameData();
   },
   methods: {
+    loadGameData: function () {
+      AxiosService.get(`api/game/${this.gameId}`, this.getGameDataSuccess, this.getGameDataFail);
+    },
+    getGameDataSuccess: function (response) {
+      const rounds = response.data.rounds;
+      this.currentRound = response.data['currentRound'];
+      this.oldRounds = _.take(rounds, this.currentRound - 1);
+    },
+    getGameDataFail: function (response) {
+      console.log(response);
+      alert('Error');
+    },
     onClick(route) {
       this.$router.push({
         name: route,
@@ -97,12 +110,28 @@ export default {
         }
       });
       if (!hasErrors) {
-        console.log('All Fine');
+        const body = {
+          attack: this.form.attack,
+          defend: this.form.defend,
+        };
+        AxiosService.post(`/api/game/${this.gameId}/round/${this.currentRound}`, body, this
+          .playRoundSuccess, this.playRoundError);
       }
     },
+    playRoundSuccess() {
+      this.$router.push({
+        name: 'Overview',
+        params: {
+          userData: this.userData,
+        },
+      });
+    },
+    playRoundError(response) {
+      alert(JSON.stringify(response.data));
+    },
     resetError(sourceId) {
-        this.errorState[sourceId] = false;
-        this.errorMessage[sourceId] = '';
+      this.errorState[sourceId] = false;
+      this.errorMessage[sourceId] = '';
     },
     resetErrors() {
       Object.keys(this.form).forEach((f) => {

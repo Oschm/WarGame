@@ -33,6 +33,7 @@ export default {
   render: (h) => h(NavigationDrawer),
       props: {
       drawer: Boolean,
+      userData: Object,
     },
   methods: {
     onClick(route) {

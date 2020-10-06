@@ -1,6 +1,6 @@
 <template>
   <v-app id="overview">
-    <NavigationDrawer v-bind:drawer="drawer"></NavigationDrawer>
+    <NavigationDrawer v-bind:drawer="drawer" v-bind:userData="userData"></NavigationDrawer>
     <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Application</v-toolbar-title>
