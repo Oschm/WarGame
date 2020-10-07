@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6da0a291-6d79-4624-a90e-d92493002773",
+		"_postman_id": "283f3e22-6788-4814-a3e7-bfc9ec4895c8",
 		"name": "WarGame",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"firstName\": \"Oliver\",\r\n\t\"lastName\": \"Schmidt\",\r\n\t\"email\": \"oliver.schmidt@ibsolution.de\",\r\n\t\"password\": \"Init1234\"\r\n}"
+					"raw": "{\r\n\t\"firstName\": \"Manuel\",\r\n\t\"lastName\": \"Ruhnau\",\r\n\t\"email\": \"manuel.ruhnau@ibsolution.de\",\r\n\t\"password\": \"Init1234\"\r\n}"
 				},
 				"url": {
 					"raw": "{{API_ENDPOINT}}/api/login/signup",
@@ -63,13 +63,69 @@
 			"response": []
 		},
 		{
+			"name": "login Manuel",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"manuel.ruhnau@ibsolution.de\",\"password\":\"Init1234\"}"
+				},
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/login",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login Nazar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userName\":\"nazar.kulyk@ibsolution.de\",\"password\":\"Init1234\"}"
+				},
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/login",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getUser",
 			"request": {
 				"method": "GET",
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRlMWEzNWE1MTVmOTU2NThlM2U3NzgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODk1ODEzOH0.m7h7caxtJ5DIDZ5Wqhx5HQiA7MDSffP83EFpS4B8wE0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjdkODdmZjRiNmNkYjQ5Yzg5ODlmMDEiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwMjA2MzQ0Mn0.bLX0Ww_UNHt-XQbCz2KadHAd1Xz2MKw4fGiULBT9eQ0",
 						"type": "text"
 					}
 				],
@@ -105,6 +161,36 @@
 					"path": [
 						"api",
 						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get History",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwMTk5MjU3MX0.el-Uz3Oh71YQYnhiUim-PDN5LKVxbr8b9Ex4du9lW_Y"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/game/history",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"game",
+						"history"
 					]
 				}
 			},
@@ -147,7 +233,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRlMWEzNWE1MTVmOTU2NThlM2U3NzgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODk1ODEzOH0.m7h7caxtJ5DIDZ5Wqhx5HQiA7MDSffP83EFpS4B8wE0",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODk4NjI2OH0.63yUfPD3rFKv3oIdaXSxsfsusYa6vJ-GaSfRY9l3wYA",
 						"type": "text"
 					}
 				],
@@ -167,13 +253,110 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "getGame",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU5ODg4NjUxOX0.jY0HAPuvzm8DPvxyE2o_Aff1nsf_hOw51z4u0KgNkCk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/game/5f7c8607ee664f35f407a02c",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"game",
+						"5f7c8607ee664f35f407a02c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "playRound Oliver",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjRjMjUxOGIxMjZiNDM1MjgzNTc2NTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwMTk4NjU2NH0.OB6H2Yiv6ITL9fEu7PDhjp9w6HyDo6_KErpa0AjihvI",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"attack\": \"1\", \"defend\": \"2\"}"
+				},
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/game/5f7c6327aa65d53ec45a58fa/round/3",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"game",
+						"5f7c6327aa65d53ec45a58fa",
+						"round",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "playRound Nazar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1ZjVmMjNjOTQ3M2ViZjNhZjQ1ZjczNWYiLCJyb2xlIjoidXNlciIsImlhdCI6MTYwMTk4NjY0N30.vEjfTiq0uV7ZOIMGrBm4w4GiCLcdkhOKaGpXLnwFED4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"attack\": \"3\", \"defend\": \"1\"}"
+				},
+				"url": {
+					"raw": "{{API_ENDPOINT}}/api/game/5f7c8b8cee664f35f407a02d/round/1",
+					"host": [
+						"{{API_ENDPOINT}}"
+					],
+					"path": [
+						"api",
+						"game",
+						"5f7c8b8cee664f35f407a02d",
+						"round",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "2afb69a9-7180-4659-b723-0b25b66d5663",
+				"id": "a73fef21-e902-4805-a437-9b95521ddf5d",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -183,7 +366,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "4cc6f77f-9dc1-43b1-8ca7-a276592fd741",
+				"id": "c031e670-f242-4cc4-b24a-877cfa5cac7c",
 				"type": "text/javascript",
 				"exec": [
 					""
