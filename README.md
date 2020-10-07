@@ -4,10 +4,10 @@ This Repository contains a Fullstack App created using the MEAN Stack as a Proof
 Documentation can be found in https://ibsolution.sharepoint.com/:f:/r/sites/consulting/Cloud/Dokumente/SAP%20Themen%20%26%20Know-How/MEAN%20Stack?csf=1&web=1&e=HFyMME
 
 # Commands Cheat Sheet
-SignUp Page npot yet implemented. when cloning use Postman API Call "signUp" to create new User.
+SignUp Page not yet implemented. when cloning use Postman API Call "signUp" to create new User.
 
 ## Backend
-start local node server = node index.js
+start local node server: node index.js
 
 ## start local mongdb
 ### create dircetory
@@ -19,10 +19,6 @@ md "\data\db"
 
 ### mongodb Compass connection string
 mongodb://localhost:<Mongo Port>
-
-### start server
-In server folder
-node index.js
 
 ## Frontend
 run app locally
