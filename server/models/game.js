@@ -171,11 +171,13 @@ Game._createUserFilter = function (userId, filter) {
     userFilter["user1"] = userId;
     userFilter["user2"] = userId;
     let config = this._createOrFilter("$eq", userFilter);
-    config.$match.$and = [];
-    config = this._appendAndFilter(config, "$eq", filter);
+    if (_.size(filter) > 0) {
+        config.$match.$and = [];
+        config = this._appendAndFilter(config, "$eq", filter);
+    }
+
     //userFilter.$match.$and = [{"_id":{"$eq":monk.id(userId)}}];
     console.log(`createUserFilter: ${JSON.stringify(config)}`);
-    console.log(`type of userfilter: ${typeof config.$match.$or[1].user2.$eq}`);
     return config;
 }
 
@@ -251,7 +253,7 @@ Game._createFilterObject = function (filterProperty, filterOption, filterValue) 
     console.log(`Create Filter Object: Property: ${filterProperty}, Option: ${filterOption}, filterValue: ${filterValue}`)
     let filterObject = {};
     let filter = {};
-    filterObject[filterOption] = _.includes(_.lowerCase(filterProperty), "id") || filterProperty === 'user1'||  filterProperty === 'user2' ? Monk.id(filterValue) : filterValue;
+    filterObject[filterOption] = _.includes(_.lowerCase(filterProperty), "id") || filterProperty === 'user1' || filterProperty === 'user2' ? Monk.id(filterValue) : filterValue;
     filter[filterProperty] = filterObject;
     console.log(`Created Filter Object: ${JSON.stringify(filter)}`);
     return filter;

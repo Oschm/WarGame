@@ -1,4 +1,7 @@
-# WarGame
+# IBGame
+
+This Repository contains a Fullstack App created using the MEAN Stack as a Proof of Concept and to drive forward knowledge about Open-Source Technologies.
+Documentation can be found in https://ibsolution.sharepoint.com/:f:/r/sites/consulting/Cloud/Dokumente/SAP%20Themen%20%26%20Know-How/MEAN%20Stack?csf=1&web=1&e=HFyMME
 
 # Commands Cheat Sheet
 SignUp Page npot yet implemented. when cloning use Postman API Call "signUp" to create new User.

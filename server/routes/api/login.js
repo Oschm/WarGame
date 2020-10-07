@@ -37,15 +37,15 @@ router.get('/', (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         console.log("login")
-
+        let result = {};
         let body = req.body;
         console.log(JSON.stringify(body));
         const loginData = await loginSchema.validateAsync(body);
         let userToken = await warGame.loginUser(loginData);
         res.statusCode = 200;
         // return token in body
-        body.token = userToken;
-        return res.json(req.body);
+        result.token = userToken;
+        return res.json(result);
     } catch (error) {
         console.log(`/login post error: ${error.message}`);
         res.status('400');
